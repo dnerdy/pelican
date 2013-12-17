@@ -79,11 +79,20 @@ class Generator(object):
         templates ready to use with Jinja2.
         """
         if name not in self._templates:
-            try:
-                self._templates[name] = self.env.get_template(name + '.html')
-            except TemplateNotFound:
-                raise Exception('[templates] unable to load %s.html from %s'
-                                % (name, self._templates_path))
+            found = False
+
+            for extension in self.settings['TEMPLATE_EXTENSIONS']:
+                name_with_extension = name + extension
+                try:
+                    self._templates[name] = self.env.get_template(name_with_extension)
+                    found = True
+                except TemplateNotFound:
+                    pass
+
+            if not found:
+                raise Exception('[templates] unable to load %s{%s} from %s' %
+                    (name, ','.join(settings['TEMPLATE_EXTENSIONS']), self._templates_path))
+
         return self._templates[name]
 
     def _include_path(self, path, extensions=None):

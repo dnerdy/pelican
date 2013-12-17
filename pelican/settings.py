@@ -92,6 +92,7 @@ DEFAULT_CONFIG = {
     'DATE_FORMATS': {},
     'ASCIIDOC_OPTIONS': [],
     'MD_EXTENSIONS': ['codehilite(css_class=highlight)', 'extra'],
+    'TEMPLATE_EXTENSIONS': ['.html'],
     'JINJA_EXTENSIONS': [],
     'JINJA_FILTERS': {},
     'LOCALE': [''],  # defaults to user locale
